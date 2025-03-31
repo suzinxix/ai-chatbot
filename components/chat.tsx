@@ -83,10 +83,13 @@ export function Chat() {
 
   return (
     <main className="mx-auto flex h-svh max-h-svh w-full max-w-[35rem] flex-col items-stretch border-none">
+      {/* Chat messages section */}
       <div className="flex-1 content-center overflow-y-auto px-6">
         {messages.length ? messageList : header}
       </div>
-      <form className="border-input bg-white  relative mx-6 mb-6 flex items-center rounded-[16px] border  border-gray-200 px-3 py-1.5 text-sm ">
+
+      {/* Input Section */}
+      <form className="border-input bg-white relative mx-6 mb-6 flex items-center rounded-[16px] border  border-gray-200 px-3 py-1.5  ">
         <AutoResizeTextarea
           ref={ref}
           onKeyDown={handleKeyDown}
