@@ -26,6 +26,7 @@ export function Chat() {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
+      if (!input.trim()) return;
       handleSubmit();
       // 리렌더 후 포커스가 사라질 수 있으므로, setTimeout을 통해 포커스 재설정
       setTimeout(() => {
