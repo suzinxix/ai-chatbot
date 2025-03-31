@@ -1,8 +1,9 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import { useChat } from "@ai-sdk/react";
 import { AutoResizeTextarea } from "@/components/autoresize-textarea";
-import { useRef, useEffect } from "react";
+import { useScrollToBottom } from "@/hooks/use-scroll-to-bottom";
 
 export function Chat() {
   const {
@@ -28,22 +29,17 @@ export function Chat() {
       e.preventDefault();
       if (!input.trim()) return;
       handleSubmit();
-      // 리렌더 후 포커스가 사라질 수 있으므로, setTimeout을 통해 포커스 재설정
-      setTimeout(() => {
-        ref.current?.focus();
-      }, 100);
     }
   };
 
-  const header = (
-    <header className="m-auto flex max-w-96 flex-col gap-5 text-center">
-      <h1 className="text-2xl leading-none font-semibold tracking-tight"></h1>
-      <p className="text-muted-foreground text-sm"></p>
-    </header>
-  );
+  const [messagesContainerRef, messagesEndRef] =
+    useScrollToBottom<HTMLDivElement>();
 
   const messageList = (
-    <div className="my-4 flex h-fit min-h-full flex-col gap-4">
+    <div
+      ref={messagesContainerRef}
+      className="flex h-fit min-h-full flex-col gap-4 pt-4"
+    >
       {messages.map((message, index) => (
         <div
           key={index}
@@ -55,10 +51,14 @@ export function Chat() {
       ))}
 
       {(status === "submitted" || status === "streaming") && (
-        <div className="mt-4 text-sm text-gray-500">
-          {status === "submitted" && <div>쓰는 중..</div>}
+        <div>
+          {status === "submitted" && (
+            <div className="text-sm text-gray-500">입력 중..</div>
+          )}
         </div>
       )}
+
+      <div ref={messagesEndRef} className="min-h-0.5" />
 
       {error && (
         <div className="mt-4">
@@ -83,10 +83,10 @@ export function Chat() {
   }, [status]);
 
   return (
-    <main className="mx-auto flex h-svh max-h-svh w-full max-w-[35rem] flex-col items-stretch border-none">
+    <main className="mx-auto flex h-svh w-full max-w-[35rem] flex-col items-stretch border-none">
       {/* Chat messages section */}
       <div className="flex-1 content-center overflow-y-auto px-6">
-        {messages.length ? messageList : header}
+        {messageList}
       </div>
 
       {/* Input Section */}

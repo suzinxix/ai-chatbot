@@ -1,17 +1,14 @@
 "use client";
 
-import { useEffect, type TextareaHTMLAttributes } from "react";
+import { useEffect } from "react";
+import type { TextareaHTMLAttributes, RefObject, ChangeEvent } from "react";
 import { cn } from "@/lib/utils";
 
-interface AutoResizeTextareaProps
-  extends Omit<
-    TextareaHTMLAttributes<HTMLTextAreaElement>,
-    "value" | "onChange"
-  > {
+type AutoResizeTextareaProps = {
   value: string;
-  ref?: React.RefObject<HTMLTextAreaElement | null>;
-  handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
+  ref?: RefObject<HTMLTextAreaElement | null>;
+  handleInputChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+} & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "value" | "onChange">;
 
 export function AutoResizeTextarea({
   className,
