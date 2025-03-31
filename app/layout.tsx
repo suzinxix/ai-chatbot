@@ -16,9 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body
-        className={cn("flex min-h-svh flex-col antialiased", inter.className)}
-      >
+      <body className={cn("min-h-svh antialiased", inter.className)}>
         {children}
       </body>
     </html>

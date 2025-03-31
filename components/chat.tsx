@@ -36,7 +36,7 @@ export function Chat() {
 
   const header = (
     <header className="m-auto flex max-w-96 flex-col gap-5 text-center">
-      <h1 className="text-2xl font-semibold leading-none tracking-tight"></h1>
+      <h1 className="text-2xl leading-none font-semibold tracking-tight"></h1>
       <p className="text-muted-foreground text-sm"></p>
     </header>
   );
@@ -47,14 +47,14 @@ export function Chat() {
         <div
           key={index}
           data-role={message.role}
-          className="max-w-[80%] rounded-xl px-3 py-2 text-sm data-[role=assistant]:self-start data-[role=user]:self-end data-[role=assistant]:bg-gray-100 data-[role=user]:bg-blue-500 data-[role=assistant]:text-black data-[role=user]:text-white"
+          className="max-w-[80%] rounded-xl px-3 py-2 text-sm data-[role=assistant]:self-start data-[role=assistant]:bg-gray-100 data-[role=assistant]:text-black data-[role=user]:self-end data-[role=user]:bg-blue-500 data-[role=user]:text-white"
         >
           {message.content}
         </div>
       ))}
 
       {(status === "submitted" || status === "streaming") && (
-        <div className="mt-4 text-gray-500 text-sm">
+        <div className="mt-4 text-sm text-gray-500">
           {status === "submitted" && <div>쓰는 중..</div>}
         </div>
       )}
@@ -64,7 +64,7 @@ export function Chat() {
           <div className="text-red-500">An error occurred.</div>
           <button
             type="button"
-            className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={() => reload()}
           >
             Retry
@@ -89,7 +89,7 @@ export function Chat() {
       </div>
 
       {/* Input Section */}
-      <form className="border-input bg-white relative mx-6 mb-6 flex items-center rounded-[16px] border  border-gray-200 px-3 py-1.5  ">
+      <form className="border-input relative mx-6 mb-6 flex items-center rounded-[16px] border border-gray-200 bg-white px-3 py-1.5">
         <AutoResizeTextarea
           ref={ref}
           onKeyDown={handleKeyDown}
@@ -98,7 +98,7 @@ export function Chat() {
           value={input}
           placeholder="Enter a message"
           disabled={status !== "ready"}
-          className="placeholder:text-gray-400 flex-1 bg-transparent focus:outline-none"
+          className="flex-1 bg-transparent placeholder:text-gray-400 focus:outline-none"
         />
       </form>
     </main>

@@ -43,7 +43,7 @@ export function AutoResizeTextarea({
         handleInputChange(e);
         resizeTextarea();
       }}
-      className={cn("resize-none min-h-2 max-h-20", className)}
+      className={cn("max-h-20 min-h-2 resize-none", className)}
     />
   );
 }
