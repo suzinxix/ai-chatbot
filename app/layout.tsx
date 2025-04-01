@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "AI Chat",
   description: "AI Chat with OpenAI",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
