@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
+import clsx from "clsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={cn("min-h-svh antialiased", inter.className)}>
+      <body className={clsx("min-h-svh antialiased", inter.className)}>
         {children}
       </body>
     </html>

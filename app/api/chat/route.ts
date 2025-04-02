@@ -6,10 +6,7 @@ export const maxDuration = 30;
 
 export async function POST(req: Request) {
   // Extract the `messages` from the body of the request
-  const { messages, id, system } = await req.json();
-
-  console.log("chat id", id); // can be used for persisting the chat
-  console.log(system); // AI system personality
+  const { messages, system } = await req.json();
 
   // Call the language model
   const result = streamText({

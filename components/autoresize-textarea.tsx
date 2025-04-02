@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import type { TextareaHTMLAttributes, RefObject, ChangeEvent } from "react";
-import { cn } from "@/lib/utils";
+import clsx from "clsx";
 
 type AutoResizeTextareaProps = {
   value: string;
@@ -40,7 +40,7 @@ export function AutoResizeTextarea({
         handleInputChange(e);
         resizeTextarea();
       }}
-      className={cn("max-h-20 min-h-2 resize-none", className)}
+      className={clsx("max-h-20 min-h-2 resize-none", className)}
     />
   );
 }
