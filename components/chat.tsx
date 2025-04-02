@@ -2,8 +2,10 @@
 
 import { useRef, useEffect } from "react";
 import { useChat } from "@ai-sdk/react";
+import Header from "@/components/header";
 import { AutoResizeTextarea } from "@/components/autoresize-textarea";
 import { useScrollToBottom } from "@/hooks/use-scroll-to-bottom";
+import { RefreshCw } from "lucide-react";
 
 export function Chat() {
   const {
@@ -44,12 +46,11 @@ export function Chat() {
         <div
           key={index}
           data-role={message.role}
-          className="max-w-[80%] rounded-xl px-3 py-2 text-sm data-[role=assistant]:self-start data-[role=assistant]:bg-gray-100 data-[role=assistant]:text-black data-[role=user]:self-end data-[role=user]:bg-blue-500 data-[role=user]:text-white"
+          className="max-w-[80%] rounded-xl px-3 py-2 text-sm data-[role=assistant]:self-start data-[role=assistant]:text-white data-[role=user]:self-end"
         >
           {message.content}
         </div>
       ))}
-
       {(status === "submitted" || status === "streaming") && (
         <div>
           {status === "submitted" && (
@@ -57,21 +58,24 @@ export function Chat() {
           )}
         </div>
       )}
-
-      <div ref={messagesEndRef} className="min-h-0.5" />
-
       {error && (
         <div className="mt-4">
-          <div className="text-red-500">An error occurred.</div>
-          <button
-            type="button"
-            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
-            onClick={() => reload()}
-          >
-            Retry
-          </button>
+          <div className="mb-1.5 text-sm text-red-500">An error occurred.</div>
+          <div className="relative flex items-center gap-1">
+            <RefreshCw
+              size={14}
+              type="button"
+              onClick={() => reload()}
+              className="peer text-gray-400 hover:text-gray-100"
+            />
+
+            <div className="invisible text-sm peer-hover:visible">
+              다시 시도하기
+            </div>
+          </div>
         </div>
       )}
+      <div ref={messagesEndRef} className="min-h-0.5" />
     </div>
   );
 
@@ -83,25 +87,29 @@ export function Chat() {
   }, [status]);
 
   return (
-    <main className="mx-auto flex h-svh w-full max-w-[35rem] flex-col items-stretch border-none">
+    <main className="mx-auto flex h-svh w-full flex-col items-stretch border-none">
+      <Header />
+
       {/* Chat messages section */}
-      <div className="flex-1 content-center overflow-y-auto px-6">
-        {messageList}
-      </div>
+      <section className="flex flex-1 content-center justify-center overflow-y-auto px-6">
+        <div className="w-full max-w-[35rem]">{messageList}</div>
+      </section>
 
       {/* Input Section */}
-      <form className="border-input relative mx-6 mb-6 flex items-center rounded-[16px] border border-gray-200 bg-white px-3 py-1.5">
-        <AutoResizeTextarea
-          ref={ref}
-          onKeyDown={handleKeyDown}
-          autoFocus
-          handleInputChange={handleInputChange}
-          value={input}
-          placeholder="Enter a message"
-          disabled={status !== "ready"}
-          className="flex-1 bg-transparent placeholder:text-gray-400 focus:outline-none"
-        />
-      </form>
+      <section className="flex justify-center border-t border-gray-500/40 bg-black">
+        <form className="relative mt-2 mb-3 flex w-full max-w-[35rem] items-center rounded-[32px] bg-black px-3 py-1.5">
+          <AutoResizeTextarea
+            ref={ref}
+            onKeyDown={handleKeyDown}
+            autoFocus
+            handleInputChange={handleInputChange}
+            value={input}
+            placeholder="message.."
+            disabled={status !== "ready"}
+            className="flex-1 bg-transparent placeholder:text-gray-400 focus:outline-none"
+          />
+        </form>
+      </section>
     </main>
   );
 }

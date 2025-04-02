@@ -1,8 +1,8 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 import clsx from "clsx";
 
-const inter = Inter({ subsets: ["latin"] });
+const noto = Noto_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "AI Chat",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={clsx("min-h-svh antialiased", inter.className)}>
+      <body className={clsx("min-h-svh antialiased", noto.className)}>
         {children}
       </body>
     </html>
