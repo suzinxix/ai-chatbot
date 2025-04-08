@@ -3,6 +3,7 @@ import { useScrollToBottom } from "@/hooks/use-scroll-to-bottom";
 import { memo } from "react";
 import type { UseChatHelpers } from "@ai-sdk/react";
 import { RefreshCw } from "lucide-react";
+import { TypewriterText } from "@/components/typewriter-text";
 
 interface MessagesProps {
   status: UseChatHelpers["status"];
@@ -19,13 +20,20 @@ export const Messages = memo(
     return (
       <div
         ref={messagesContainerRef}
-        className="flex h-fit min-h-full flex-col gap-4 pt-4"
+        className="relative flex h-fit min-h-full flex-col gap-4 pt-4"
       >
+        {messages.length === 0 && (
+          <TypewriterText
+            text="안녕 나는 Nulla야. 너를 도울 수 있어."
+            speed={50}
+          />
+        )}
+
         {messages.map((message, index) => (
           <div
             key={index}
             data-role={message.role}
-            className="max-w-[80%] py-2 text-sm data-[role=assistant]:self-start data-[role=assistant]:text-white data-[role=user]:self-end"
+            className="animate-fade-in max-w-[80%] py-2 text-sm data-[role=assistant]:self-start data-[role=assistant]:text-white data-[role=user]:self-end"
           >
             {message.content}
           </div>
@@ -33,13 +41,15 @@ export const Messages = memo(
         {(status === "submitted" || status === "streaming") && (
           <div>
             {status === "submitted" && (
-              <div className="text-sm text-gray-400">입력 중..</div>
+              <div className="animate-fade-in text-sm text-gray-300">
+                입력 중..
+              </div>
             )}
           </div>
         )}
         {error && (
           <div className="mt-4">
-            <div className="mb-1.5 text-sm text-red-500">
+            <div className="mb-1.5 text-sm text-red-400">
               문제 발생: 다시 시도해봐. 네가 잘못한 건 아니야.
             </div>
             <div className="relative flex items-center gap-1">

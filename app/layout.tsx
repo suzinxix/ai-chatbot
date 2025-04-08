@@ -1,11 +1,9 @@
 import "./globals.css";
-import { Noto_Sans } from "next/font/google";
+import { orbit } from "@/app/font";
 import clsx from "clsx";
 
-const noto = Noto_Sans({ subsets: ["latin"] });
-
 export const metadata = {
-  title: "AI Chat",
+  title: "Nulla",
   description: "AI Chat with OpenAI",
   icons: {
     icon: "/favicon.png",
@@ -19,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={clsx("min-h-svh antialiased", noto.className)}>
+      <body className={clsx("min-h-svh antialiased", orbit.className)}>
         {children}
       </body>
     </html>
