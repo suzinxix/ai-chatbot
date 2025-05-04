@@ -4,6 +4,7 @@ import { memo } from "react";
 import type { UseChatHelpers } from "@ai-sdk/react";
 import { RefreshCw } from "lucide-react";
 import { TypewriterText } from "@/components/typewriter-text";
+import equal from "fast-deep-equal";
 
 interface MessagesProps {
   status: UseChatHelpers["status"];
@@ -73,9 +74,8 @@ export const Messages = memo(
   (prev, next) => {
     return (
       prev.status === next.status &&
-      prev.messages.length === next.messages.length &&
+      equal(prev.messages, next.messages) &&
       prev.error === next.error
-      // messages deep equality checks
     );
   },
 );

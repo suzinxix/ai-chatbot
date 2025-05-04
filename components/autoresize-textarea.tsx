@@ -31,9 +31,6 @@ export const AutoResizeTextarea = memo(
       resizeTextarea();
     }, [value]);
 
-
-    console.log("Textarea was rendered at", new Date().toLocaleTimeString());
-
     return (
       <textarea
         {...props}
