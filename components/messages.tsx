@@ -5,7 +5,7 @@ import type { UseChatHelpers } from "@ai-sdk/react";
 import { RefreshCw } from "lucide-react";
 import { TypewriterText } from "@/components/typewriter-text";
 import equal from "fast-deep-equal";
-
+import Image from "next/image";
 interface MessagesProps {
   status: UseChatHelpers["status"];
   messages: Array<UIMessage>;
@@ -37,6 +37,22 @@ export const Messages = memo(
             className="animate-fade-in max-w-[80%] py-2 text-sm data-[role=assistant]:self-start data-[role=assistant]:text-white data-[role=user]:self-end"
           >
             {message.content}
+            <div>
+              {message?.experimental_attachments
+                ?.filter((attachment) =>
+                  attachment?.contentType?.startsWith("image/"),
+                )
+                .map((attachment, index) => (
+                  <Image
+                    key={`${message.id}-${index}`}
+                    src={attachment.url}
+                    width={160}
+                    height={160}
+                    alt={attachment.name ?? `attachment-${index}`}
+                    className="rounded-lg"
+                  />
+                ))}
+            </div>
           </div>
         ))}
         {(status === "submitted" || status === "streaming") && (
